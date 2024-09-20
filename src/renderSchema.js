@@ -26,6 +26,7 @@ function renderObject(type, options) {
   const headingLevel = options.headingLevel || 1
   const getTypeURL = options.getTypeURL
   const getFieldURL = options.getFieldURL
+  const hasArgument = options.hasArgument == null ? true : options.hasArgument
   const isInputObject = type.kind === 'INPUT_OBJECT'
   const isInterface = type.kind === 'INTERFACE'
 
@@ -38,8 +39,8 @@ function renderObject(type, options) {
   printer('<table>')
   printer('<thead>')
   printer('<tr>')
-  if (isInputObject) {
-    printer('<th colspan="2" align="left">Field</th>')
+  if (isInputObject || !hasArgument) {
+    printer('<th align="left">Field</th>')
   } else {
     printer('<th align="left">Field</th>')
     printer('<th align="right">Argument</th>')
@@ -62,7 +63,9 @@ function renderObject(type, options) {
         field.isDeprecated ? ' ⚠️' : ''
       }</td>`
     )
-    printer(`<td></td>`)
+    if (!isInputObject && hasArgument) {
+      printer(`<td></td>`)
+    }
     printer(
       `<td valign="top">${renderType(field.type, {
         getTypeURL,
@@ -70,7 +73,7 @@ function renderObject(type, options) {
       })}</td>`
     )
     printer('</tr>')
-    if (!isInputObject && field.args.length) {
+    if (!isInputObject && hasArgument && field.args.length) {
       field.args.forEach((arg, i) => {
         printer('<tr>')
         printer(`<td></td>`)
@@ -305,7 +308,13 @@ function renderSchema(schema, options) {
   if (objects.length) {
     printer(`\n${'#'.repeat(headingLevel + 1)} Objects`)
     objects.forEach((type) =>
-      renderObject(type, { headingLevel, printer, getTypeURL, getFieldURL })
+      renderObject(type, {
+        headingLevel,
+        printer,
+        getTypeURL,
+        getFieldURL,
+        hasArgument: false,
+      })
     )
   }
 
