@@ -336,7 +336,6 @@ function renderSchema(schema, options) {
       printer('<thead>')
       printer('<tr>')
       printer('<th align="left">Value</th>')
-      printer('<th align="left">Description</th>')
       printer('</tr>')
       printer('</thead>')
       printer('<tbody>')
@@ -347,23 +346,6 @@ function renderSchema(schema, options) {
             value.isDeprecated ? ' ⚠️' : ''
           }</td>`
         )
-        if (value.description || value.isDeprecated) {
-          printer('<td>')
-          if (value.description) {
-            printer(`\n${value.description}\n`)
-          }
-          if (value.isDeprecated) {
-            printer('<p>⚠️ <strong>DEPRECATED</strong></p>')
-            if (value.deprecationReason) {
-              printer('<blockquote>')
-              printer(`\n${value.deprecationReason}\n`)
-              printer('</blockquote>')
-            }
-          }
-          printer('</td>')
-        } else {
-          printer('<td></td>')
-        }
         printer('</tr>')
       })
       printer('</tbody>')
