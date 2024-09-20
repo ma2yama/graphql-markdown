@@ -60,10 +60,11 @@ function renderObject(type, options) {
       : `<strong>${field.name}</strong>`
     printer('<tr>')
     printer(
-      `<td colspan="2" valign="top">${fieldNameMarkup}${
+      `<td valign="top">${fieldNameMarkup}${
         field.isDeprecated ? ' ⚠️' : ''
       }</td>`
     )
+    printer(`<td></td>`)
     printer(
       `<td valign="top">${renderType(field.type, {
         getTypeURL,
@@ -91,7 +92,8 @@ function renderObject(type, options) {
     if (!isInputObject && field.args.length) {
       field.args.forEach((arg, i) => {
         printer('<tr>')
-        printer(`<td colspan="2" align="right" valign="top">${arg.name}</td>`)
+        printer(`<td></td>`)
+        printer(`<td align="right" valign="top">${arg.name}</td>`)
         printer(
           `<td valign="top">${renderType(arg.type, {
             getTypeURL,
