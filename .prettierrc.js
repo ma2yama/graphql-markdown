@@ -1,3 +1,5 @@
 module.exports = {
-  proseWrap: "always"
+  singleQuote: true,
+  semi: false,
+  proseWrap: 'always',
 };
