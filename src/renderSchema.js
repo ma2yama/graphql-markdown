@@ -16,8 +16,7 @@ function renderType(type, options) {
   if (type.kind === 'LIST') {
     return `[${renderType(type.ofType, options)}]`
   }
-  const url = options.getTypeURL(type)
-  return url ? `<a href="${url}">${type.name}</a>` : type.name
+  return type.name
 }
 
 function renderObject(type, options) {
