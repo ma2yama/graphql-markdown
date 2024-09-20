@@ -46,7 +46,6 @@ function renderObject(type, options) {
     printer('<th align="right">Argument</th>')
   }
   printer('<th align="left">Type</th>')
-  printer('<th align="left">Description</th>')
   printer('</tr>')
   printer('</thead>')
   printer('<tbody>')
@@ -71,23 +70,6 @@ function renderObject(type, options) {
         getFieldURL,
       })}</td>`
     )
-    if (field.description || field.isDeprecated) {
-      printer('<td>')
-      if (field.description) {
-        printer(`\n${field.description}\n`)
-      }
-      if (field.isDeprecated) {
-        printer('<p>⚠️ <strong>DEPRECATED</strong></p>')
-        if (field.deprecationReason) {
-          printer('<blockquote>')
-          printer(`\n${field.deprecationReason}\n`)
-          printer('</blockquote>')
-        }
-      }
-      printer('</td>')
-    } else {
-      printer('<td></td>')
-    }
     printer('</tr>')
     if (!isInputObject && field.args.length) {
       field.args.forEach((arg, i) => {
@@ -100,13 +82,6 @@ function renderObject(type, options) {
             getFieldURL,
           })}</td>`
         )
-        if (arg.description) {
-          printer('<td>')
-          printer(`\n${arg.description}\n`)
-          printer('</td>')
-        } else {
-          printer('<td></td>')
-        }
         printer('</tr>')
       })
     }
